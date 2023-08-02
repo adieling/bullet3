@@ -36,8 +36,14 @@ extern ContactAddedCallback gContactAddedCallback;
 /// These callbacks are used to customize the algorith that combine restitution, friction, damping, Stiffness
 typedef btScalar (*CalculateCombinedCallback)(const btCollisionObject* body0, const btCollisionObject* body1);
 
-extern CalculateCombinedCallback gCalculateCombinedRestitutionCallback;
-extern CalculateCombinedCallback gCalculateCombinedFrictionCallback;
+#ifdef DLL_BULLET_COLLISION_EXPORTS
+#define DLL_BULLET_COLLISION_API __declspec(dllexport)
+#else
+#define DLL_BULLET_COLLISION_API __declspec(dllimport)
+#endif
+
+extern "C" DLL_BULLET_COLLISION_API CalculateCombinedCallback gCalculateCombinedRestitutionCallback;
+extern "C" DLL_BULLET_COLLISION_API CalculateCombinedCallback gCalculateCombinedFrictionCallback;
 extern CalculateCombinedCallback gCalculateCombinedRollingFrictionCallback;
 extern CalculateCombinedCallback gCalculateCombinedSpinningFrictionCallback;
 extern CalculateCombinedCallback gCalculateCombinedContactDampingCallback;
