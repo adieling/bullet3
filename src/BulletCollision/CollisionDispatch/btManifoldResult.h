@@ -16,6 +16,12 @@ subject to the following restrictions:
 #ifndef BT_MANIFOLD_RESULT_H
 #define BT_MANIFOLD_RESULT_H
 
+#ifdef DLL_BULLET_COLLISION_EXPORTS
+#define DLL_BULLET_COLLISION_API __declspec(dllexport)
+#else
+#define DLL_BULLET_COLLISION_API __declspec(dllimport)
+#endif
+
 class btCollisionObject;
 struct btCollisionObjectWrapper;
 
@@ -29,25 +35,19 @@ class btManifoldPoint;
 #include "BulletCollision/CollisionDispatch/btCollisionObject.h"
 
 typedef bool (*ContactAddedCallback)(btManifoldPoint& cp, const btCollisionObjectWrapper* colObj0Wrap, int partId0, int index0, const btCollisionObjectWrapper* colObj1Wrap, int partId1, int index1);
-extern ContactAddedCallback gContactAddedCallback;
+extern "C" DLL_BULLET_COLLISION_API ContactAddedCallback gContactAddedCallback;
 
 //#define DEBUG_PART_INDEX 1
 
 /// These callbacks are used to customize the algorith that combine restitution, friction, damping, Stiffness
 typedef btScalar (*CalculateCombinedCallback)(const btCollisionObject* body0, const btCollisionObject* body1);
 
-#ifdef DLL_BULLET_COLLISION_EXPORTS
-#define DLL_BULLET_COLLISION_API __declspec(dllexport)
-#else
-#define DLL_BULLET_COLLISION_API __declspec(dllimport)
-#endif
-
 extern "C" DLL_BULLET_COLLISION_API CalculateCombinedCallback gCalculateCombinedRestitutionCallback;
 extern "C" DLL_BULLET_COLLISION_API CalculateCombinedCallback gCalculateCombinedFrictionCallback;
-extern CalculateCombinedCallback gCalculateCombinedRollingFrictionCallback;
-extern CalculateCombinedCallback gCalculateCombinedSpinningFrictionCallback;
-extern CalculateCombinedCallback gCalculateCombinedContactDampingCallback;
-extern CalculateCombinedCallback gCalculateCombinedContactStiffnessCallback;
+extern "C" DLL_BULLET_COLLISION_API CalculateCombinedCallback gCalculateCombinedRollingFrictionCallback;
+extern "C" DLL_BULLET_COLLISION_API CalculateCombinedCallback gCalculateCombinedSpinningFrictionCallback;
+extern "C" DLL_BULLET_COLLISION_API CalculateCombinedCallback gCalculateCombinedContactDampingCallback;
+extern "C" DLL_BULLET_COLLISION_API CalculateCombinedCallback gCalculateCombinedContactStiffnessCallback;
 
 ///btManifoldResult is a helper class to manage  contact results.
 class btManifoldResult : public btDiscreteCollisionDetectorInterface::Result

@@ -2091,7 +2091,7 @@ void btMultiBody::goToSleep()
 
 void btMultiBody::checkMotionAndSleepIfRequired(btScalar timestep)
 {
-	extern bool gDisableDeactivation;
+	extern __declspec(dllimport) bool gDisableDeactivation;
 	if (!m_canSleep || gDisableDeactivation)
 	{
 		m_awake = true;

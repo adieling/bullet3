@@ -12,7 +12,7 @@ subject to the following restrictions:
 2. Altered source versions must be plainly marked as such, and must not be misrepresented as being the original software.
 3. This notice may not be removed or altered from any source distribution.
 */
-
+#define DLL_BULLET_DYNAMICS_EXPORTS
 #include "btRigidBody.h"
 #include "BulletCollision/CollisionShapes/btConvexShape.h"
 #include "LinearMath/btMinMax.h"
@@ -22,8 +22,8 @@ subject to the following restrictions:
 #include "LinearMath/btSerializer.h"
 
 //'temporarily' global variables
-btScalar gDeactivationTime = btScalar(2.);
-bool gDisableDeactivation = false;
+extern DLL_BULLET_DYNAMICS_API btScalar gDeactivationTime = btScalar(2.);
+extern DLL_BULLET_DYNAMICS_API bool gDisableDeactivation = false;
 static int uniqueId = 0;
 
 btRigidBody::btRigidBody(const btRigidBody::btRigidBodyConstructionInfo& constructionInfo)
